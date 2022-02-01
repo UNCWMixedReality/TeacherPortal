@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  vasc_teacher_portal:
+    build: 
+      context: ../app
+      dockerfile: Dockerfile.prod
+    container_name: vasc_teacher_portal
+    command: >
+      sh -c "python manage.py makemigrations &&
+            python manage.py runserver 0.0.0.0:8000"
+    volumes: 
+      - ../app/:/usr/src/app/
+    ports:
+      - 8001:8001
