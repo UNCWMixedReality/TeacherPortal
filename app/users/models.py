@@ -1,6 +1,7 @@
 # users/models.py
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from organizations.models import Organization
 
 
 class CustomUser(AbstractUser):
@@ -19,3 +20,13 @@ class CustomUser(AbstractUser):
             self.first_name = split_name[0]
             self.last_name = split_name[1]
         super(CustomUser, self).save(*args, **kwargs)
+
+
+class Staff(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
+    organization = models.ForeignKey(
+        Organization, blank=True, null=True, on_delete=models.DO_NOTHING
+    )
+
+    def __str__(self):
+        return str(self.user)

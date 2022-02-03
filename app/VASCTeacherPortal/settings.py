@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     # Project Apps
     "users",
     "api",
+    "organizations",
 ]
 
 MIDDLEWARE = [
