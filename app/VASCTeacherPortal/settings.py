@@ -141,6 +141,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ==================================================
 # New Content
 
+# Rest Framework Auth
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+        # for browsable api view usage
+        "rest_framework.authentication.SessionAuthentication",
+    )
+}
+
 AUTH_USER_MODEL = "users.CustomUser"
 
 SITE_ID = 1

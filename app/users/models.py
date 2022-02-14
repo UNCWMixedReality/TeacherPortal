@@ -10,7 +10,7 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = AbstractUser.REQUIRED_FIELDS + ["name"]
 
     def __str__(self):
-        if self.first_name is not None:
+        if len(self.first_name) > 0:
             return f"{self.first_name} {self.last_name}"
         return self.email
 

@@ -12,8 +12,8 @@ class Organization(models.Model):
 
 class Course(models.Model):
     name = models.CharField(max_length=128)
-    org_id = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    staff_id = models.ForeignKey("users.Staff", on_delete=models.DO_NOTHING)
+    org_id = models.ForeignKey(Organization, blank=True, on_delete=models.CASCADE)
+    staff_id = models.ForeignKey("users.Staff", blank=True, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.name
