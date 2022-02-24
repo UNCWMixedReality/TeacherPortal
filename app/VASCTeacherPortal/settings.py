@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "users",
     "api",
     "organizations",
+    "DataCollection",
 ]
 
 MIDDLEWARE = [
