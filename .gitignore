@@ -258,3 +258,5 @@ Temporary Items
 !.vscode/*.code-snippets
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python,macos,django
+
+app/jstoolchain/node_modules

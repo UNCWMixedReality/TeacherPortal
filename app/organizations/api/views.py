@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from users.models import Staff
 from users.serializers import StaffSerializer
 
-from . import models, serializers
+from .. import models, serializers
 
 URL_KWARG = "pk"
 

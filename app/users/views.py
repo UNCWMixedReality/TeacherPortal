@@ -1,15 +1,8 @@
-# users/views.py
-from rest_framework import generics
+from django.db.models import Case, When
+from django.shortcuts import render
 
-from . import models, serializers
-
-
-class UserListView(generics.ListAPIView):
-    queryset = models.CustomUser.objects.all()
-    serializer_class = serializers.UserSerializer
+# Create your views here.
 
 
-class StaffListView(generics.ListCreateAPIView):
-    # TODO: Auth only + Logic to restrict list to only members of the same org
-    queryset = models.Staff.objects.all()
-    serializer_class = serializers.StaffSerializer
+def HomepageView(request):
+    return render(request, "users/home.html", {})
