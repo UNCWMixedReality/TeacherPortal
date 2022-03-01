@@ -141,18 +141,18 @@ if os.environ.get("USE_S3", False):
     # Minio Specific
     AWS_ACCESS_KEY_ID = os.environ.get("S3_KEY")
     AWS_SECRET_ACCESS_KEY = os.environ.get("S3_SECRET_KEY")
-    AWS_STORAGE_BUCKET_NAME = "teacher-portal"
+    AWS_STORAGE_BUCKET_NAME = "static"
     AWS_S3_ENDPOINT_URL = "https://vr.uncw.edu/"
 
     # Static Config
-    STATIC_LOCATION = "static"
+    STATIC_LOCATION = "static/teacher-portal"
     STATICFILES_STORAGE = "VASCTeacherPortal.storage_backends.StaticStorage"
     STATIC_URL = f"{AWS_S3_ENDPOINT_URL}{STATIC_LOCATION}/"
 
-    # Media Config
-    PUBLIC_MEDIA_LOCATION = "media"
-    MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}{PUBLIC_MEDIA_LOCATION}/"
-    DEFAULT_FILE_STORAGE = "VASCTeacherPortal.storage_backends.PublicMediaStorage"
+    # # Media Config
+    # PUBLIC_MEDIA_LOCATION = "medi/teaa"
+    # MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}{PUBLIC_MEDIA_LOCATION}/"
+    # DEFAULT_FILE_STORAGE = "VASCTeacherPortal.storage_backends.PublicMediaStorage"
 
     # Remove query string from the url
     AWS_QUERYSTRING_AUTH = False
