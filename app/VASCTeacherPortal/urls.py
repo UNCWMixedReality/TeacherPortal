@@ -18,7 +18,7 @@ from django.urls import include, path
 from users.views import HomepageView
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("api/v1/", include("api.urls")),
-    path("", HomepageView, name="home"),
+    path("VASC/admin/", admin.site.urls),
+    path("VASC/api/v1/", include("api.urls")),
+    path("VASC/", HomepageView, name="home"),
 ]
