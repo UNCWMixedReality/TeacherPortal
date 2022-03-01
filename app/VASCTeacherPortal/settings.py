@@ -137,7 +137,33 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_ROOT=os.path.join('static')
+if os.environ.get("USE_S3", False):
+    # Minio Specific
+    AWS_ACCESS_KEY_ID = os.environ.get("S3_KEY")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("S3_SECRET_KEY")
+    AWS_STORAGE_BUCKET_NAME = "teacher-portal"
+    AWS_S3_ENDPOINT_URL = "https://vr.uncw.edu/"
+
+    # Static Config
+    STATIC_LOCATION = "static"
+    STATICFILES_STORAGE = "VASCTeacherPortal.storage_backends.StaticStorage"
+    STATIC_URL = f"{AWS_S3_ENDPOINT_URL}{STATIC_LOCATION}/"
+
+    # Media Config
+    PUBLIC_MEDIA_LOCATION = "media"
+    MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}{PUBLIC_MEDIA_LOCATION}/"
+    DEFAULT_FILE_STORAGE = "VASCTeacherPortal.storage_backends.PublicMediaStorage"
+
+    # Remove query string from the url
+    AWS_QUERYSTRING_AUTH = False
+
+else:
+    STATIC_URL = "/static/"
+    STATIC_ROOT = os.path.join("static")
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+STATIC_ROOT = os.path.join("static")
 STATIC_URL = "static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "users/static"),
