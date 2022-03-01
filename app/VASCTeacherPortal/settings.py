@@ -178,6 +178,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ==================================================
 # New Content
 
+# Allows us to run multiple Django Projects at vr.uncw.edu
+ADMIN_MEDIA_PREFIX = "/VASC/admin_media/"
+SESSION_COOKIE_PATH = "/VASC"
+LOGIN_REDIRECT_URL = "/VASC/"
+LOGIN_URL = "/VASC/users/login/"  # THIS MAY BE CAUSING PROBLEMS
+LOGOUT_URL = "/VASC/users/logout/"  # THIS MAY BE CAUSING PROBLEMS
+
 # Rest Framework Auth
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
