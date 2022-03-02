@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "rest_auth.registration",
+    "rest_framework_api_key",
     # Project Apps
     "users",
     "api",
@@ -178,6 +179,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ==================================================
 # New Content
 
+# if os.environ.get("")
 # Allows us to run multiple Django Projects at vr.uncw.edu
 ADMIN_MEDIA_PREFIX = "/VASC/admin_media/"
 SESSION_COOKIE_PATH = "/VASC"
