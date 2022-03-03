@@ -28,7 +28,7 @@ SECRET_KEY = environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = environ.get("DJANGO_DEBUG", True)
+DEBUG = bool(int(environ.get("DJANGO_DEBUG", 1)))
 
 ALLOWED_HOSTS = environ.get("DJANGO_ALLOWED_HOSTS", "*").split(" ")
 
@@ -179,15 +179,17 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ==================================================
 # New Content
 
-# if os.environ.get("")
-# Allows us to run multiple Django Projects at vr.uncw.edu
-ADMIN_MEDIA_PREFIX = "/VASC/admin_media/"
-SESSION_COOKIE_PATH = "/VASC"
-LOGIN_REDIRECT_URL = "/VASC/"
-LOGIN_URL = "/VASC/users/login/"  # THIS MAY BE CAUSING PROBLEMS
-LOGOUT_URL = "/VASC/users/logout/"  # THIS MAY BE CAUSING PROBLEMS
-USE_X_FORWARDED_HOST = True
-FORCE_SCRIPT_NAME = "/VASC"
+if int(os.environ.get("DEPLOYED")) > 0:
+    # Allows us to run multiple Django Projects at vr.uncw.edu
+    ADMIN_MEDIA_PREFIX = "/VASC/admin_media/"
+    SESSION_COOKIE_PATH = "/VASC"
+    LOGIN_REDIRECT_URL = "/VASC/"
+    LOGIN_URL = "/VASC/users/login/"  # THIS MAY BE CAUSING PROBLEMS
+    LOGOUT_URL = "/VASC/users/logout/"  # THIS MAY BE CAUSING PROBLEMS
+    USE_X_FORWARDED_HOST = True
+    FORCE_SCRIPT_NAME = "/VASC"
+else:
+    print("hi!")
 
 # Rest Framework Auth
 REST_FRAMEWORK = {

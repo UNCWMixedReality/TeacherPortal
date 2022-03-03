@@ -4,6 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from users.models import Staff
 from users.serializers import StaffSerializer
+from rest_framework_api_key.permissions import HasAPIKey
+from rest_framework.response import Response
 
 from .. import models, serializers
 
@@ -210,6 +212,17 @@ class GroupDetailView(generics.RetrieveAPIView):
             ]
             course = models.Group.objects.filter(course_id__in=courses)
             return course
+
+class GroupByHeadsetMACAddressView(APIView):
+    serializer_class = serializers.GroupSerializer
+    permission_classes = [HasAPIKey]
+
+    def get(self, request, MAC):
+        headset = models.Headset.objects.get(mac_address=MAC)
+        group = models.Group.objects.get(headset_id = headset)
+        s_group = serializers.GroupSerializer(group)
+        return Response(s_group.data)
+
 
 
 # Headsets

@@ -127,7 +127,7 @@ class HeadsetSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ("name", "course_id")
+        fields = ("id", "name", "course_id")
 
     def create(self, validated_data):
         user = self.context["request"].user
