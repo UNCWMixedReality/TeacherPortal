@@ -223,7 +223,7 @@ if DEBUG is False:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_HSTS_SECONDS = 36000
     SECURE_BROWSER_XSS_FILTER = True
-    SECURE_SSL_REDIRECT = True
+    SECURE_SSL_REDIRECT = False  # Nginx already handles this, and it was causing issues with the /VASC/ header rewrite
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     X_FRAME_OPTIONS = "DENY"
