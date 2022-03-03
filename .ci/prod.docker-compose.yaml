@@ -6,15 +6,15 @@ services:
       context: ../app
       dockerfile: Dockerfile.prod
       args:
-        SQL_ENGINE=${SQL_ENGINE}
-        SQL_DATABASE=${SQL_DATABASE}
-        SQL_USER=${SQL_USER}
-        SQL_PASSWORD=${SQL_PASSWORD}
-        SQL_HOST=${SQL_HOST}
-        SQL_PORT=${SQL_PORT}
-        DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
-        S3_KEY=${S3_KEY}
-        S3_SECRET_KEY=${S3_SECRET_KEY}
+        - SQL_ENGINE=${SQL_ENGINE}
+        - SQL_DATABASE=${SQL_DATABASE}
+        - SQL_USER=${SQL_USER}
+        - SQL_PASSWORD=${SQL_PASSWORD}
+        - SQL_HOST=${SQL_HOST}
+        - SQL_PORT=${SQL_PORT}
+        - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+        - S3_KEY=${S3_KEY}
+        - S3_SECRET_KEY=${S3_SECRET_KEY}
     container_name: vasc_teacher_portal
     volumes: 
       - ../app/:/usr/src/app/
