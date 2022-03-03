@@ -1,1 +1,0 @@
-{"course_id":1,"headset_id":1,"members":[{"id":1,"name":"Timmy","course_id":1},{"id":2,"name":"Tommy","course_id":1},{"id":3,"name":"Chucky","course_id":1}]}

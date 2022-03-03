@@ -188,8 +188,7 @@ if int(os.environ.get("DEPLOYED")) > 0:
     LOGOUT_URL = "/VASC/users/logout/"  # THIS MAY BE CAUSING PROBLEMS
     USE_X_FORWARDED_HOST = True
     FORCE_SCRIPT_NAME = "/VASC"
-else:
-    print("hi!")
+
 
 # Rest Framework Auth
 REST_FRAMEWORK = {

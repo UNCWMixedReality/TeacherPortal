@@ -3,6 +3,7 @@ import json
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_api_key.permissions import HasAPIKey
 
 from .models import SessionData
 
@@ -10,11 +11,11 @@ from .models import SessionData
 
 
 class DataUploadView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [HasAPIKey | IsAuthenticated]
 
     def post(self, request):
         new_session = SessionData.objects.create(data=request.data)
 
         new_session.save()
 
-        return Response(None, status=200)
+        return Response("Session Data Saved", status=200)
