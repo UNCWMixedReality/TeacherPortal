@@ -24,7 +24,9 @@ urlpatterns = [
     # path("student/roster/", views.StudentRosterCreateView.as_view()),
     path("student/<int:pk>/", views.StudentDetailView.as_view()),
     path("group/<int:pk>/", views.GroupDetailView.as_view()),
-    path("group/<str:MAC>/", views.GroupByHeadsetMACAddressView.as_view()),
+    path("group/<str:id>/", views.GroupByHeadsetIDView.as_view()),
     path("headset/", views.HeadsetCreateView.as_view()),
+    path("headset/exists/<str:id>/", views.HeadsetExistsView.as_view()),
+    path("headset/reference/<str:id>/", views.HeadsetReferenceIDView.as_view()),
     path("headset/<int:pk>/", views.HeadsetDetailView.as_view()),
 ]

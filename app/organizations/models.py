@@ -20,11 +20,15 @@ class Course(models.Model):
 
 
 class Headset(models.Model):
-    org_id = models.ForeignKey(Organization, on_delete=models.DO_NOTHING)
-    mac_address = models.CharField(max_length=12, null=False, blank=False)
+    org_id = models.ForeignKey(Organization, on_delete=models.DO_NOTHING, blank=True, null=True)
+    device_nickname = models.CharField(max_length=128, null=True, blank=True)
+    device_id = models.CharField(max_length=128,default="UNREGISTERED_HEADSET", null=False, blank=False)
 
     def __str__(self):
-        return f'{self.org_id} - {":".join(["".join(self.mac_address[x:x+2]) for x in range(0, 12, 2)])}'
+        if self.device_nickname is None:
+            return self.device_id
+        else:
+            return self.device_nickname
 
 
 class Student(models.Model):

@@ -19,5 +19,5 @@ ENV DEPLOYED 0
 # Install App
 COPY . .
 
-# Queue any migrations
+# Queue Migrations
 RUN python manage.py makemigrations

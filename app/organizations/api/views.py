@@ -213,15 +213,18 @@ class GroupDetailView(generics.RetrieveAPIView):
             course = models.Group.objects.filter(course_id__in=courses)
             return course
 
-class GroupByHeadsetMACAddressView(APIView):
+class GroupByHeadsetIDView(APIView):
     serializer_class = serializers.GroupSerializer
     permission_classes = [HasAPIKey]
 
-    def get(self, request, MAC):
-        headset = models.Headset.objects.get(mac_address=MAC)
-        group = models.Group.objects.get(headset_id = headset)
-        s_group = serializers.GroupSerializer(group)
-        return Response(s_group.data)
+    def get(self, request, id):
+        try:
+            headset = models.Headset.objects.get(device_id=id)
+            group = models.Group.objects.get(headset_id = headset)
+            s_group = serializers.GroupSerializer(group)
+            return Response(s_group.data)
+        except models.Headset.DoesNotExist:
+            return Response({})
 
 
 
@@ -229,7 +232,28 @@ class GroupByHeadsetMACAddressView(APIView):
 # /headset/
 class HeadsetCreateView(generics.CreateAPIView):
     serializer_class = serializers.HeadsetSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [HasAPIKey]
+
+# /headset/exists/<str:id>/
+class HeadsetExistsView(APIView):
+
+    def get(self, request, id):
+        
+        try:
+            headset = models.Headset.objects.get(device_id=id) # retrieve the user using username
+        except models.Headset.DoesNotExist:
+            return Response(data={'registered':False}) # return false as user does not exist
+        else:
+            return Response(data={'registered':True}) # Otherwise, return True
+
+class HeadsetReferenceIDView(APIView):
+    def get(self, request, id):
+        try:
+            headset = models.Headset.objects.get(device_id=id) # retrieve the user using username
+            return Response({"ref_id": self.headset.device_reference_id})
+        except models.Headset.DoesNotExist:
+            return Response({}) # return false as user does not exist
+    
 
 
 # /headset/<int:pk>/

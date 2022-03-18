@@ -74,54 +74,54 @@ class CourseSerializer(serializers.ModelSerializer):
 class HeadsetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Headset
-        fields = ("org_id", "mac_address")
+        fields = ("org_id", "device_id", "device_nickname")
 
-    def create(self, validated_data):
-        user = self.context["request"].user
+    # def create(self, validated_data):
+    #     user = self.context["request"].user
 
-        if user.is_superuser:
-            if isinstance(validated_data["org_id"], int):
-                organization = Organization.objects.get(id=validated_data["org_id"])
-                headset = Headset.objects.create(
-                    org_id=organization,
-                    mac_address=validated_data["mac_address"],
-                )
-                headset.save()
-                return headset
-            else:
-                headset = Headset.objects.create(**validated_data)
-                headset.save()
-                return headset
-        else:
-            requesting_staff = Staff.objects.get(user=user)
-            organization = Organization.objects.get(id=requesting_staff.organization)
-            headset = Headset.objects.create(
-                org_id=organization, mac_address=validated_data["mac_address"]
-            )
-            headset.save()
-            return headset
+    #     if user.is_superuser:
+    #         if isinstance(validated_data["org_id"], int):
+    #             organization = Organization.objects.get(id=validated_data["org_id"])
+    #             headset = Headset.objects.create(
+    #                 org_id=organization,
+    #                 mac_address=validated_data["mac_address"],
+    #             )
+    #             headset.save()
+    #             return headset
+    #         else:
+    #             headset = Headset.objects.create(**validated_data)
+    #             headset.save()
+    #             return headset
+    #     else:
+    #         requesting_staff = Staff.objects.get(user=user)
+    #         organization = Organization.objects.get(id=requesting_staff.organization)
+    #         headset = Headset.objects.create(
+    #             org_id=organization, mac_address=validated_data["mac_address"]
+    #         )
+    #         headset.save()
+    #         return headset
 
-    def validate(self, attrs):
-        user = self.context["request"].user
+    # def validate(self, attrs):
+    #     user = self.context["request"].user
 
-        if not user.is_superuser:
-            if user.id != attrs.staff_id:
-                raise ValidationError(
-                    detail={
-                        "detail": "Non admin users can only create headsets for themselves"
-                    }
-                )
+    #     if not user.is_superuser:
+    #         if user.id != attrs.staff_id:
+    #             raise ValidationError(
+    #                 detail={
+    #                     "detail": "Non admin users can only create headsets for themselves"
+    #                 }
+    #             )
 
-            staff = Staff.objects.get(user=user)
-            if staff.organization.id != attrs.org_id:
-                raise ValidationError(
-                    detail={
-                        "detail": "Non admin users can only create headsets within their own organization"
-                    }
-                )
+    #         staff = Staff.objects.get(user=user)
+    #         if staff.organization.id != attrs.org_id:
+    #             raise ValidationError(
+    #                 detail={
+    #                     "detail": "Non admin users can only create headsets within their own organization"
+    #                 }
+    #             )
 
-        super().validate(attrs)
-        return attrs
+    #     super().validate(attrs)
+    #     return attrs
 
 
 class StudentSerializer(serializers.ModelSerializer):
