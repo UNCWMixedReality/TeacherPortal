@@ -55,4 +55,4 @@ RUN adduser --disabled-password myuser
 USER myuser
 
 # run gunicorn
-CMD gunicorn VASCTeacherPortal.wsgi:application --bind 0.0.0.0:8001
+CMD gunicorn VASCTeacherPortal.wsgi:application --bind 0.0.0.0:8001 --log-file -
