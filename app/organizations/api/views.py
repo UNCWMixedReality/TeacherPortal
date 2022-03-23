@@ -224,7 +224,9 @@ class GroupByHeadsetIDView(APIView):
             s_group = serializers.GroupSerializer(group)
             return Response(s_group.data)
         except models.Headset.DoesNotExist:
-            return Response({})
+            return Response("Error - Headset is not registered")
+        except models.Group.DoesNotExist:
+            return Response("Error - Group not assigned")
 
 
 

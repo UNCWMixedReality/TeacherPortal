@@ -22,7 +22,7 @@ class Course(models.Model):
 class Headset(models.Model):
     org_id = models.ForeignKey(Organization, on_delete=models.DO_NOTHING, blank=True, null=True)
     device_nickname = models.CharField(max_length=128, null=True, blank=True)
-    device_id = models.CharField(max_length=128,default="UNREGISTERED_HEADSET", null=False, blank=False)
+    device_id = models.CharField(max_length=128, default="UNREGISTERED_HEADSET", null=False, blank=False, unique=True)
 
     def __str__(self):
         if self.device_nickname is None:
