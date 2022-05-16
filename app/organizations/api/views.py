@@ -223,6 +223,7 @@ class GroupByHeadsetIDView(APIView):
             group = models.Group.objects.get(headset_id = headset)
             s_group = serializers.GroupSerializer(group)
             return Response(s_group.data)
+        # These errors should return status codes as well, would clean the logic up clientside
         except models.Headset.DoesNotExist:
             return Response("Error - Headset is not registered")
         except models.Group.DoesNotExist:
@@ -248,6 +249,18 @@ class HeadsetExistsView(APIView):
         else:
             return Response(data={'registered':True}) # Otherwise, return True
 
+class HeadsetDetailView(APIView):
+    permission_classes = [HasAPIKey]
+
+    def get(self, request, id):
+        try:
+            headset = models.Headset.objects.get(device_id=id)
+            h_data = serializers.HeadsetSerializer(headset).data
+            return h_data
+         except models.Headset.DoesNotExist:
+            return Response("Error - Headset is not registered")
+
+
 class HeadsetReferenceIDView(APIView):
     def get(self, request, id):
         try:
@@ -256,19 +269,3 @@ class HeadsetReferenceIDView(APIView):
         except models.Headset.DoesNotExist:
             return Response({}) # return false as user does not exist
     
-
-
-# /headset/<int:pk>/
-class HeadsetDetailView(generics.RetrieveAPIView):
-    serializer_class = serializers.HeadsetSerializer
-    permission_classes = [IsAuthenticated]
-    lookup_field = "id"
-    lookup_url_kwarg = "pk"
-
-    def get_queryset(self):
-        if self.request.user.is_superuser:
-            return models.Headset.objects.all()
-        else:
-            staff = Staff.objects.get(user=self.request.user)
-            headsets = models.Headset.objects.filter(org_id=staff.organization)
-            return headsets

@@ -28,5 +28,5 @@ urlpatterns = [
     path("headset/", views.HeadsetCreateView.as_view()),
     path("headset/exists/<str:id>/", views.HeadsetExistsView.as_view()),
     path("headset/reference/<str:id>/", views.HeadsetReferenceIDView.as_view()),
-    path("headset/<int:pk>/", views.HeadsetDetailView.as_view()),
+    path("headset/<str:id>/", views.HeadsetDetailView.as_view()),
 ]
